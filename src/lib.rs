@@ -23,13 +23,13 @@ pub mod core;
 #[cfg(feature = "cuda")]
 pub mod cuda;
 pub mod errors;
-pub mod features2d;
+//pub mod features2d;
 pub mod highgui;
 pub mod imgcodecs;
 pub mod imgproc;
 pub mod mat;
 pub mod objdetect;
-pub mod text;
+//pub mod text;
 pub mod video;
 pub mod videoio;
 
