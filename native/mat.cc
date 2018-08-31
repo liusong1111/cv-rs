@@ -49,6 +49,41 @@ void cv_mat_flip(cv::Mat* image, int code) {
     cv::flip(*image, *image, code);
 }
 
+void cv_mat_transpose(cv::Mat* src_image, cv::Mat* dst_image) {
+    cv::transpose(*src_image, *dst_image);
+}
+
+void cv_mat_rotate(cv::Mat* image, int rotate_flag) {
+//void rot90(cv::Mat &matImage, int rotflag){
+//  //1=CW, 2=CCW, 3=180
+//  if (rotflag == 1){
+//    transpose(matImage, matImage);
+//    flip(matImage, matImage,1); //transpose+flip(1)=CW
+//  } else if (rotflag == 2) {
+//    transpose(matImage, matImage);
+//    flip(matImage, matImage,0); //transpose+flip(0)=CCW
+//  } else if (rotflag ==3){
+//    flip(matImage, matImage,-1);    //flip(-1)=180
+//  } else if (rotflag != 0){ //if not 0,1,2,3:
+//    cout  << "Unknown rotation flag(" << rotflag << ")" << endl;
+//  }
+//}
+    if(rotate_flag == 0) {
+        return;
+    }
+    if(rotate_flag == 1){
+        cv::transpose(*image, *image);
+        cv::flip(*image, *image, 1);
+    } else if(rotate_flag == 2) {
+        cv::flip(*image, *image, 3);
+    } else if(rotate_flag == 3) {
+        cv::transpose(*image, *image);
+        cv::flip(*image, *image, 0);
+    } else {
+        //... error
+    }
+}
+
 int cv_mat_cols(const cv::Mat* const mat) {
     return mat->cols;
 }

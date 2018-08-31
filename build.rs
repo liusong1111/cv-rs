@@ -52,7 +52,8 @@ fn opencv_include() -> &'static str {
 
 #[cfg(unix)]
 fn opencv_link() {
-    println!("cargo:rustc-link-search=native=/usr/local/lib");
+    //println!("cargo:rustc-link-search=native=/usr/local/lib");
+    println!("cargo:rustc-link-search=native=/usr/local/lib/x86_64-linux-gnu");
     println!("cargo:rustc-link-lib=opencv_core");
     //println!("cargo:rustc-link-lib=opencv_features2d");
     //println!("cargo:rustc-link-lib=opencv_xfeatures2d");

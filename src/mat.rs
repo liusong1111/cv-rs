@@ -39,6 +39,8 @@ extern "C" {
     fn cv_mat_type(cmat: *const CMat) -> CvType;
     fn cv_mat_roi(cmat: *const CMat, rect: Rect) -> *mut CMat;
     fn cv_mat_flip(src: *mut CMat, code: c_int);
+    fn cv_mat_transpose(src: *mut CMat, dst: *mut CMat);
+    fn cv_mat_rotate(src: *mut CMat, rotate_flag: c_int);
     fn cv_mat_drop(mat: *mut CMat);
     fn cv_mat_eye(rows: c_int, cols: c_int, cv_type: CvType) -> *mut CMat;
     fn cv_mat_in_range(cmat: *const CMat, lowerb: Scalar, upperb: Scalar, dst: *mut CMat);
@@ -98,7 +100,9 @@ pub struct Mat {
 }
 
 unsafe impl Send for CMat {}
+
 unsafe impl Send for Mat {}
+
 impl Into<CMat> for Mat {
     fn into(self) -> CMat {
         unsafe { *self.inner }
@@ -245,6 +249,22 @@ impl Mat {
         }
     }
 
+    /// transpose a mat
+    pub fn transpose(&mut self, dst: &mut Mat) {
+        unsafe {
+            cv_mat_transpose(self.inner, dst.inner);
+        }
+    }
+
+    /// rotate a mat for 90, 180, 270 degree for convenience
+    // rotate_flag: 0: no_rotate, 1: 90 degree, 2: 180 degree, 3: 270 degree
+    pub fn rotate(&mut self, rotate_flag: u32) {
+        unsafe {
+            cv_mat_rotate(self.inner, rotate_flag as i32);
+        }
+    }
+
+
     /// Returns the images type. For supported types, please see
     /// [CvType](enum.CvType).
     pub fn cv_type(&self) -> CvType {
@@ -276,7 +296,7 @@ impl Mat {
             } else if size.width == 1 {
                 i0 as usize * (self.step1(1) * self.elem_size1())
             } else {
-                unimplemented!{};
+                unimplemented! {};
             }
         };
 

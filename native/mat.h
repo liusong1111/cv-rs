@@ -17,6 +17,8 @@ void* cv_mat_eye(int rows, int cols, int type);
 bool cv_mat_valid(cv::Mat* mat);
 void* cv_mat_roi(cv::Mat* mat, Rect crect);
 void cv_mat_flip(cv::Mat* image, int code);
+void cv_mat_transpose(cv::Mat* src_image, cv::Mat* dst_image);
+void cv_mat_rotate(cv::Mat* src_image, int rotate_flag);
 int cv_mat_rows(const cv::Mat* const mat);
 int cv_mat_cols(const cv::Mat* const mat);
 int cv_mat_depth(const cv::Mat* const mat);
